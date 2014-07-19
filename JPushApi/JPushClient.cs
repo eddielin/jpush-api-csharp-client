@@ -8,6 +8,6 @@ namespace JPush.Api
 {
     public class JPushClient
     {
-
+        
     }
 }

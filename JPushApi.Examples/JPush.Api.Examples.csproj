@@ -76,7 +76,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\JPush.Api.csproj">
+    <ProjectReference Include="..\JPushApi\JPush.Api.csproj">
       <Project>{79a305db-0955-42e1-b38b-9b730f824005}</Project>
       <Name>JPush.Api</Name>
     </ProjectReference>
