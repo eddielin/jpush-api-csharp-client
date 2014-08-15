@@ -47,6 +47,10 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Push\PushClient.cs" />
+    <Compile Include="Utils\CustomException\ApiConnectionException.cs" />
+    <Compile Include="Utils\CustomException\ArgumentsNullException.cs" />
+    <Compile Include="Utils\HttpClient.cs" />
+    <Compile Include="Utils\IHttpClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Report\" />
@@ -56,6 +60,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
