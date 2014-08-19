@@ -21,8 +21,8 @@ namespace JPush.Api.Utils.CustomException
         private bool _isTimeout = false;
         private int _doneRetriedTimes = 0;
 
-        public int DoneRetriedTimes { get; }
-        public int IsTimeout { get; }
+        public int DoneRetriedTimes { get { return _doneRetriedTimes; } }
+        public bool IsTimeout { get { return _isTimeout; } }
 
 
         public ApiConnectionException(String message) : base(message) 

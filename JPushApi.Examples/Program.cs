@@ -14,9 +14,11 @@ namespace JPush.Examples
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Console.WriteLine("salfjksalkfjasl");
+            //int a = 1 | 3 | 7;
+            //Console.WriteLine(a);
+            //Console.WriteLine(a & 1);
+        
         }
     }
 }

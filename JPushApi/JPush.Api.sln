@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JPush.Api", "JPush.Api.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JPush.Api.Tester", "JPushApi.Tester\JPush.Api.Tester.csproj", "{61D70211-3433-425A-9EE4-8ADB5D791F21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JPush.Api.Examples", "JPushApi.Examples\JPush.Api.Examples.csproj", "{D9C6D521-4A20-4BFE-99A7-ED4FCE5C2668}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JPush.Api.Examples", "..\JPushApi.Examples\JPush.Api.Examples.csproj", "{D9C6D521-4A20-4BFE-99A7-ED4FCE5C2668}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

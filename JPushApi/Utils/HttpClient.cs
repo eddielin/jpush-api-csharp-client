@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JPush.Api.Utils
 {
-    public class HttpClient : IHttpClient
+    public class HttpClient
     {
         private String _charset = "UTF-8";
         private String _userAgent = "JPush-API-C#-Client";
@@ -20,30 +21,46 @@ namespace JPush.Api.Utils
         public int ConnectTimeout { get; set; }
         public int RetryTimes { get; set; }
 
-        public void Post(String url, String authCoe, String body)
+        public void Post(String url, String authCode, String body)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-            request.Method = HttpMethod.POST;
-            request.ContentType = "application/x-www-form-urlencoded";
-            request.Headers.Add( HttpRequestHeader.AcceptCharset, _charset );
+            this.sendRequest(url, WebRequestMethods.Http.Post, authCode, body);
         }
 
         public void Get()
         {
         }
 
-        interface HttpMethod
+        private ResponseWrapper sendRequest(String url, String method, String authCode, String body)
         {
-            public const string POST = "POST";
-            public const string GET = "GET";
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            request.Timeout = _readTimeout;
+            request.ContinueTimeout = _connectTimeout;
+            request.Method = method;
+            request.Accept = "text/html, application/xhtml+xml, */*";
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.Headers.Add(HttpRequestHeader.AcceptCharset, _charset);
+
+            if (!String.IsNullOrEmpty(authCode))
+            {
+                request.Headers.Add("Authorization", "Basic " + authCode);
+            }
+
+            if (WebRequestMethods.Http.Post.Equals(method))
+            {
+                byte[] inputStream = Encoding.ASCII.GetBytes( body );
+                request.ContentLength = inputStream.Length;
+                using( Stream reqStream = request.GetRequestStream())
+                {
+                    reqStream.Write(inputStream, 0, inputStream.Length);
+                    reqStream.Close();
+                }
+            }
+
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+            return new ResponseWrapper( response );
         }
 
-        interface ApiResponseKey
-        {
-            public const string KEY_CONNECT_TIMED_OUT = "connect timed out";
-            public const string KEY_READ_TIMED_OUT = "Read timed out";
-
-        }
     }
 
 }

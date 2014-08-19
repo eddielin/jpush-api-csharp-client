@@ -8,9 +8,9 @@ namespace JPush.Api.Utils
 {
     interface IHttpClient
     {
-        public void Post();
+        void Post();
 
-        public void Get();
+        void Get();
 
         
     }
