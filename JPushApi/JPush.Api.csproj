@@ -55,10 +55,13 @@
     <Compile Include="Push\PushClient.cs" />
     <Compile Include="Push\PushPayload.cs" />
     <Compile Include="Utils\CustomException\ApiConnectionException.cs" />
+    <Compile Include="Utils\CustomException\IllegalArgumentException.cs" />
     <Compile Include="Utils\CustomException\ArgumentsNullException.cs" />
+    <Compile Include="Utils\EnumDescription.cs" />
     <Compile Include="Utils\HttpClient.cs" />
     <Compile Include="Utils\IHttpClient.cs" />
     <Compile Include="Utils\ResponseWrapper.cs" />
+    <Compile Include="Utils\ServiceHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Report\" />

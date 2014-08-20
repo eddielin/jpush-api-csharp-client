@@ -1,5 +1,6 @@
 ﻿using JPush.Api.Properties;
 using JPush.Api.Utils;
+using JPush.Api.Utils.CustomException;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,10 @@ namespace JPush.Api.Push
     public class PushClient
     {
         private HttpClient _httpClient = null;
-        private string _baseUrl = null;
+        private string _pushUrl = null;
         private string _appKey = null;
         private string _masterSecret = null;
+        private string _authCode = null;
 
         private int _maxRetryTimes = 3;
         private long _timeToLive = 86400;
@@ -57,18 +59,33 @@ namespace JPush.Api.Push
 
         public PushClient(String appKey, String masterSecret)
         {
+            if ( String.IsNullOrEmpty(appKey)
+                || String.IsNullOrEmpty(masterSecret) )
+            {
+                throw new ArgumentNullException("app_key and master_secret are both required.");
+            }
+            if (!ServiceHelper.CheckBasic(appKey, masterSecret))
+            {
+                throw new IllegalArgumentException("appKey and masterSecret format is incorrect. "
+                    + "They should be 24 size, and be composed with alphabet and numbers. "
+                    + "Please confirm that they are coming from JPush Web Portal.");
+            }
+
+            this._authCode = ServiceHelper.GetBasicAuthorization(appKey, masterSecret);
+            
+
             string apiBase = Resources.API_BASE;
             if ( !apiBase.EndsWith("/") ){
                 apiBase += "/";
             }
-            this._baseUrl = apiBase + Resources.API_PUSH;
+            this._pushUrl = apiBase + Resources.API_PUSH;
 
             this._httpClient = new HttpClient();
         }
 
         public PushClient(String appKey, String masterSecret, int maxRetryTimes) : this(appKey, masterSecret)
         {
-
+            this._maxRetryTimes = maxRetryTimes;
         }
         public PushClient(String appKey, String masterSecret, int readTimeout, int connectTimeout)
             : this(appKey, masterSecret)
@@ -82,6 +99,18 @@ namespace JPush.Api.Push
         {
             this._timeToLive = timeToLive;
         }
+        public PushClient(String appKey, String masterSecret, long timeToLive, bool apnsProduction)
+            : this(appKey, masterSecret)
+        {
+            this._timeToLive = timeToLive;
+            this._isApnsProduction = apnsProduction;
+        }
 
+        public ResponseWrapper SendPush(PushPayload payload)
+        {
+            return this._httpClient.Post(this._pushUrl, this._authCode, payload.ToString());
+        }
+
+        public ResponseWrapper SendPush()
     }
 }

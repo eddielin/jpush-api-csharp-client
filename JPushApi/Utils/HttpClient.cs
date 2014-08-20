@@ -21,9 +21,9 @@ namespace JPush.Api.Utils
         public int ConnectTimeout { get; set; }
         public int RetryTimes { get; set; }
 
-        public void Post(String url, String authCode, String body)
+        public ResponseWrapper Post(String url, String authCode, String body)
         {
-            this.sendRequest(url, WebRequestMethods.Http.Post, authCode, body);
+            return this.sendRequest(url, WebRequestMethods.Http.Post, authCode, body);
         }
 
         public void Get()

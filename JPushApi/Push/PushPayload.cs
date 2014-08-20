@@ -1,4 +1,6 @@
 ﻿
+using JPush.Api.Utils;
+using System;
 using System.Text.RegularExpressions;
 namespace JPush.Api.Push
 {
@@ -20,9 +22,13 @@ namespace JPush.Api.Push
 
     enum Platform
     {
-        //Android = "android",
-        //iOS = "ios",
-        //WinPhone = "winphone",
-        //All = "all"
+        [EnumDescription("android")]
+        Android = 1,
+        [EnumDescription("ios")]
+        iOS = 2,
+        [EnumDescription("winphone")]
+        WinPhone = 3,
+        [EnumDescription("all")]
+        All = 0
     }
 }
